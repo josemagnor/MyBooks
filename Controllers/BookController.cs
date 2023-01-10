@@ -15,44 +15,37 @@ namespace MyBooks.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        public ActionResult<List<Book>> GetAllBooks()
+        public async Task<ActionResult<List<Book>>> GetAllBooks()
         {
-            return Ok(_bookService.GetAllBooks());
+            return Ok(await _bookService.GetAllBooks());
         }
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<Book> GetOneBook(int id)
+        public async Task<ActionResult<Book>> GetOneBook(int id)
         {
-            return Ok(_bookService.GetBookByID(id));
+            return Ok(await _bookService.GetBookByID(id));
         }
 
         [HttpPost]
-        public ActionResult<List<Book>> AddOneBook(Book newBook)
+        public async Task<ActionResult<List<Book>>> AddOneBook(Book newBook)
         {   
-            return Ok(_bookService.AddBook(newBook));
+            return Ok(await _bookService.AddBook(newBook));
         }
         
         [HttpPut]
         [Route("{id}")]
-        public ActionResult<List<Book>> UpdateOneBook(int id, Book newBook)
+        public async Task<ActionResult<List<Book>>> UpdateOneBook(int id, Book newBook)
         {
-            return Ok(_bookService.UpdateBook(id,newBook));
+            return Ok(await _bookService.UpdateBook(id,newBook));
         }
         
         [HttpDelete]
         [Route("{id}")]
-        public ActionResult<List<Book>> DeleteOneBook(int id)
+        public async Task<ActionResult<List<Book>>> DeleteOneBook(int id)
         {   
-            return Ok(_bookService.DeleteBookByID(id));
+            return Ok(await _bookService.DeleteBookByID(id));
         }
         
-        [HttpPut]
-        public ActionResult DeleteAllBooks()
-        {
-            _bookService.DeleteAllBooks();
-            return Ok("books deleted");
-        }
-
     }
 }

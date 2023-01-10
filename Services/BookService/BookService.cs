@@ -15,47 +15,56 @@ namespace MyBooks.Services.BookService
             new Book{BookID = 4, BookName = "Leonard"}
         };
 
-        public List<Book> AddBook(Book newBook)
-        {
+        public async Task<ServiceResponse<List<Book>>> AddBook(Book newBook)
+        {   
+            var serviceResponse = new ServiceResponse<List<Book>>(); 
             books.Add(newBook);
-            return books;
+            serviceResponse.Data = books;
+            return serviceResponse;
         }
 
-        public List<Book> DeleteBookByID(int id)
+        public async Task<ServiceResponse<List<Book>>> DeleteBookByID(int id)
         {   
             var request = books.FirstOrDefault(b => b.BookID == id);
+            var serviceResponse = new ServiceResponse<List<Book>>(); 
             if( request is not null)
                 books.Remove(request);
-            return books;
+            serviceResponse.Data = books;
+            return serviceResponse;
         }
 
-        public List<Book> GetAllBooks()
+        public async Task<ServiceResponse<List<Book>>> GetAllBooks()
         {
-           return books;
+           var serviceResponse = new ServiceResponse<List<Book>>();
+           serviceResponse.Data = books; 
+           return serviceResponse;
         }
 
-        public Book GetBookByID(int id)
+        public async Task<ServiceResponse<Book>> GetBookByID(int id)
         {   
+            var serviceResponse = new ServiceResponse<Book>();
             var request = books.FirstOrDefault(b => b.BookID == id);
-            if(request is not null)
-                return request;
-            throw new Exception("Book not found"); // possivel retorno nulo
+            if(request is null)
+                throw new Exception("Book not found"); // possivel retorno nulo
+            else       
+                serviceResponse.Data = request;
+                return serviceResponse;
+            
         }
 
-        public List<Book> UpdateBook(int id, Book newBook)
+        public async Task<ServiceResponse<List<Book>>> UpdateBook(int id, Book newBook)
         {
             var request = books.FirstOrDefault(b=>b.BookID == id);
+            var serviceResponse = new ServiceResponse<List<Book>>();
             if(request is null)
                 throw new Exception("book not found to update");
 
             books.Remove(request);
             books.Add(newBook);
-            return books;
+            serviceResponse.Data = books;
+            return serviceResponse;
         }
 
-        public void DeleteAllBooks()
-        {
-            books.Clear();
-        }
+
     }
 }

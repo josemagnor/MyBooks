@@ -7,12 +7,11 @@ namespace MyBooks.Services.BookService
 {
     public interface IBookService
     {
-        List<Book> GetAllBooks();
-        Book GetBookByID(int id);
-        List<Book> AddBook(Book newBook);
-        List<Book> UpdateBook(int id, Book newBook);
-        List<Book> DeleteBookByID(int id);
-        void DeleteAllBooks();
+        Task<ServiceResponse<List<Book>>> GetAllBooks();
+        Task<ServiceResponse<Book>> GetBookByID(int id);
+        Task<ServiceResponse<List<Book>>> AddBook(Book newBook);
+        Task<ServiceResponse<List<Book>>> UpdateBook(int id, Book newBook);
+        Task<ServiceResponse<List<Book>>> DeleteBookByID(int id);
 
     }
 }
